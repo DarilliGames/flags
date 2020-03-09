@@ -153,3 +153,6 @@ function loadImages(){
     cakeImage.src = 'cake.png';
     waterImage.src = 'water.png';
 }
+
+
+console.log("THis is a new Bracnc!");
