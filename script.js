@@ -1,7 +1,4 @@
-
-
 window.onload = function () {
-    console.log("The Page loaded")
     canv = document.getElementById("gc");
     ctx = canv.getContext("2d");
     document.addEventListener("keydown", keyPush);
@@ -11,7 +8,8 @@ window.onload = function () {
     highscore = 0;
 }
 px = py = 10;
-gs = tc = 20;
+gs = 30;
+tc = 20;
 ax = ay = 15;
 xv = yv = 0;
 is_key_down = false;
@@ -26,18 +24,42 @@ dance04 = new Image();
 animationFrame = 0;
 animtionState = 0;
 
-cakeImage = new Image();
+
+
 
 grassImage = new Image();
 waterImage = new Image();
 sandImage = new Image();
 shurbImage = new Image();
-
+grassPinkImage = new Image();
 treeBaseImage = new Image();
 
 treeTopImage = new Image();
 
+grassBoulderImage = new Image();
+
+sandBoulderImage = new Image();
+
+
+cakeImage = new Image();
+pickupImage = new Image();
+
+
+longGrassImage = new Image();
+
 inventory = [];
+
+
+blockType = {0:longGrassImage}
+
+items = [{
+    0:{"name":"Health"},
+    1:{"name": "Magic"}
+    
+    }
+]
+
+
 
 blank = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -54,12 +76,12 @@ blank = [
 
 tiles = [
     [0,0,0,0,0,0,0,0,3,3,3,3,3,3,3,0,0,0,0,0],
-    [7,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0],
-    [5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [7,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,9,0,0,0],
+    [5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,0],
     [0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,4,0,0,0,0],
+    [0,0,0,1,1,1,1,0,0,0,0,0,0,0,4,0,4,0,0,0],
+    [0,0,0,0,0,1,0,0,9,0,0,0,4,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -71,11 +93,17 @@ tiles = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,2,11,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0]
 ]
 
-pickups = [1];
+pickups = [{"x":0, "y":0, "i":0, "q":1}, {"x":18, "y":12, "i":0, "q":1}];
+
+
+
+interactiveBlocks = [{"x":4, "y":6, "a":0}, {"x":5, "y":7, "a":0}]
+
+
 
 backup = [
     [0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0],
@@ -111,14 +139,19 @@ blocks = [[0, 0]]
 
 
 
+
 tiletype = [grassImage,
             waterImage,
             sandImage,
             shurbImage,
-            "black",
+            grassPinkImage,
             treeBaseImage,
-            "brown",
-            treeTopImage
+            grassImage,
+            treeTopImage,
+            grassImage,
+            grassBoulderImage,
+            grassImage,
+            sandBoulderImage
              
         ]
 
@@ -126,9 +159,13 @@ function generateTiles(){
     for (var x = 0; x < tc; x++){
         for (var y = 0; y < tc; y++){
             ctx.drawImage(tiletype[(tiles[y][x])], x * gs, y * gs, gs, gs);
+
             
         }
 
+    }
+    for(var i = 0; i<pickups.length; i++){
+        ctx.drawImage(pickupImage, pickups[i]["x"] * gs, pickups[i]["y"] * gs, gs, gs);
     }
     
 }
@@ -220,6 +257,10 @@ function game() {
     // ctx.fillStyle = "lime";
     // ctx.fillRect(px * gs, py * gs, gs, gs);
     animateHero();
+
+    for(var i = 0; i < interactiveBlocks.length; i++){
+        ctx.drawImage(blockType[interactiveBlocks[i]["a"]], interactiveBlocks[i]["x"] * gs, interactiveBlocks[i]["y"] * gs, gs, gs);
+    }
     
     
 
@@ -252,7 +293,6 @@ function keyPush(evt) {
                 xv = 0; yv = 1;
                 break;
             case 71:
-                console.log("dance");
                 animtionState = 99;
                 animationFrame = 0;
                 break;
@@ -260,7 +300,6 @@ function keyPush(evt) {
     }
 }
 function keyUp(evt) {
-    console.log("Stopping");
     is_key_down = false;
     xv = 0;
     yv = 0;
@@ -276,15 +315,19 @@ function loadImages(){
     shurbImage.src = "shrub.png";
     treeBaseImage.src = "treebase.png";
     treeTopImage.src = "treetop.png";
+    grassBoulderImage.src = "grassBoulder.png";
+    grassPinkImage.src = "grassPink.png";
+    sandBoulderImage.src = "sandBoulder.png";
 
     dance01.src = "dance1.png";
     dance02.src = "dance2.png";
     dance03.src = "dance3.png";
     dance04.src = "dance4.png";
 
+    pickupImage.src = "pickup.png";
+    longGrassImage.src = "longGrass.png";
     
 
 }
 
 
-console.log("THis is a new Bracnc!");
