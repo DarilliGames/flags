@@ -47,10 +47,17 @@ pickupImage = new Image();
 
 longGrassImage = new Image();
 
+arfTileImage = new Image();
+artTileImage = new Image();
+arbTileImage = new Image();
+alfTileImage = new Image();
+altTileImage = new Image();
+albTileImage = new Image();
+
 inventory = [];
 
 
-blockType = {0:longGrassImage}
+blockType = {0:longGrassImage, 11:arfTileImage, 12:artTileImage, 13:arbTileImage, 14:alfTileImage, 15:altTileImage, 16:albTileImage}
 
 items = [{
     0:{"name":"Health"},
@@ -101,7 +108,7 @@ pickups = [{"x":0, "y":0, "i":0, "q":1}, {"x":18, "y":12, "i":0, "q":1}];
 
 
 
-interactiveBlocks = [{"x":4, "y":6, "a":0}, {"x":5, "y":7, "a":0}]
+interactiveBlocks = [{"x":4, "y":6, "a":0}, {"x":5, "y":7, "a":0}, {"x":19, "y":7, "a":12}, {"x":19, "y":8, "a":11},{"x":19, "y":9, "a":13},]
 
 
 
@@ -330,6 +337,12 @@ function loadImages(){
 
     pickupImage.src = "pickup.png";
     longGrassImage.src = "longGrass.png";
+    arfTileImage.src = "accessRF.png";
+    artTileImage.src = "accessRT.png";
+    arbTileImage.src = "accessRB.png";
+    alfTileImage.src = "accessLF.png";
+    altTileImage.src = "accessLT.png";
+    albTileImage.src = "accessLB.png";
     
 
 }
