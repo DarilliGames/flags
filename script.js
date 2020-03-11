@@ -260,6 +260,10 @@ function game() {
 
     for(var i = 0; i < interactiveBlocks.length; i++){
         ctx.drawImage(blockType[interactiveBlocks[i]["a"]], interactiveBlocks[i]["x"] * gs, interactiveBlocks[i]["y"] * gs, gs, gs);
+        if(interactiveBlocks[i]["x"]== px && interactiveBlocks[i]["y"]==py){
+            interaction = true;
+            console.log("You triggered something");
+        }
     }
     
     
