@@ -1,1 +1,3 @@
-'alias run="python3 $GITPOD_REPO_ROOT/manage.py runserver 0.0.0.0:8000"' >> ~/.bashrc
+echo 'alias run="python3 -m http.server"' >> ~/.bashrc
+
+source ~/.bashrc

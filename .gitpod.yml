@@ -1,2 +1,2 @@
 tasks:
- - init: . ${GITPOD_REPO_ROOT}/init_tasks.sh    
+ - init: . ${GITPOD_REPO_ROOT}/init_tasks.sh  
