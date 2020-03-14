@@ -44,6 +44,9 @@ sandBoulderImage = new Image();
 cakeImage = new Image();
 pickupImage = new Image();
 
+brickWallImage = new Image();
+brickWallSDoor = new Image();
+brickWindowImage = new Image();
 
 longGrassImage = new Image();
 
@@ -56,13 +59,14 @@ albTileImage = new Image();
 
 inventory = [];
 
+invWarp = new Image();
 
-blockType = { 0: longGrassImage, 11: arfTileImage, 12: artTileImage, 13: arbTileImage, 14: alfTileImage, 15: altTileImage, 16: albTileImage }
+blockType = { 0: longGrassImage, 10:invWarp, 11: arfTileImage, 12: artTileImage, 13: arbTileImage, 14: alfTileImage, 15: altTileImage, 16: albTileImage }
 
 items = [{
     0: { "name": "Health" },
     1: { "name": "Magic" }
-    }
+}
 ]
 
 blank = [
@@ -93,7 +97,7 @@ levels = {
     1:
     {
         "level": [
-            [0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0],
             [7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 9, 0, 0, 0],
             [5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0],
             [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -131,8 +135,8 @@ levels = {
             [0, 0, 0, 0, 0, 1, 0, 0, 9, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 13, 15, 13, 15, 0, 0, 0],
+            [0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 15, 14, 15, 13, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -143,9 +147,16 @@ levels = {
             [0, 0, 0, 2, 11, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         ],
-        "warps": [{ "x": 0, "y": 7, "l": 1, "nx": 18, "ny": 7 }, { "x": 0, "y": 8, "l": 1, "nx": 18, "ny": 8 }, { "x": 0, "y": 9, "l": 1, "nx": 18, "ny": 9 }],
+        "warps": [{ "x": 0, "y": 7, "l": 1, "nx": 18, "ny": 7 }, { "x": 0, "y": 8, "l": 1, "nx": 18, "ny": 8 }, { "x": 0, "y": 9, "l": 1, "nx": 18, "ny": 9 }, { "x":14, "y":10, "l": 51, "nx": 1, "ny": 1 }],
         "pickups": [],
-        "interactiveBlocks": [{ "x": 0, "y": 7, "a": 15 }, { "x": 0, "y": 8, "a": 14 }, { "x": 0, "y": 9, "a": 16 }]
+        "interactiveBlocks": [{ "x": 0, "y": 7, "a": 15 }, { "x": 0, "y": 8, "a": 14 }, { "x": 0, "y": 9, "a": 16 }, {"x":14, "y":10, "a":10}]
+    },
+    51:
+    {
+        "level": [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,1,0,0,0,0,1,1,0,0,0,1,1,1,1,1,0,0],[0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0],[0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0],[0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0],[0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0],[0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0],[0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0],[0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0],[0,0,1,1,0,0,0,0,1,1,0,0,0,1,1,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+        "warps": [],
+        "pickups": [],
+        "interactiveBlocks": []
     }
 
 }
@@ -161,7 +172,19 @@ interactiveBlocks = level["interactiveBlocks"]
 
 
 
-tiletype = [grassImage,
+
+
+
+
+
+
+
+
+
+
+
+tiletype = [
+    grassImage,
     waterImage,
     sandImage,
     shurbImage,
@@ -172,8 +195,13 @@ tiletype = [grassImage,
     grassImage,
     grassBoulderImage,
     grassImage,
-    sandBoulderImage
-
+    sandBoulderImage,
+    grassImage,
+    brickWallImage,
+    brickWallSDoor,
+    brickWindowImage,
+    grassImage,
+    brickWindowImage,
 ]
 
 function generateTiles() {
@@ -256,7 +284,7 @@ function gridWarp(x, y) {
 
         }
     }
-    
+
 
 }
 
@@ -298,9 +326,11 @@ function game() {
     animateHero();
 
     for (var i = 0; i < interactiveBlocks.length; i++) {
+        
         ctx.drawImage(blockType[interactiveBlocks[i]["a"]], interactiveBlocks[i]["x"] * gs, interactiveBlocks[i]["y"] * gs, gs, gs);
+        
         if (interactiveBlocks[i]["x"] == px && interactiveBlocks[i]["y"] == py) {
-            if (interactiveBlocks[i]["a"] > 10 && interactiveBlocks[i]["a"] < 20) {
+            if (interactiveBlocks[i]["a"] >= 10 && interactiveBlocks[i]["a"] < 20) {
                 interaction = true;
                 gridWarp(interactiveBlocks[i]["x"], interactiveBlocks[i]["y"]);
                 console.log("You triggered something");
@@ -354,33 +384,36 @@ function keyUp(evt) {
 }
 
 function loadImages() {
-    heroImage.src = "hero.png";
-    cakeImage.src = "cake.png";
-    waterImage.src = "water.png";
-    grassImage.src = "grass.png";
-    sandImage.src = "sand.png";
-    shurbImage.src = "shrub.png";
-    treeBaseImage.src = "treebase.png";
-    treeTopImage.src = "treetop.png";
-    grassBoulderImage.src = "grassBoulder.png";
-    grassPinkImage.src = "grassPink.png";
-    sandBoulderImage.src = "sandBoulder.png";
+    heroImage.src = "images/hero.png";
+    cakeImage.src = "images/cake.png";
+    waterImage.src = "images/water.png";
+    grassImage.src = "images/grass.png";
+    sandImage.src = "images/sand.png";
+    shurbImage.src = "images/shrub.png";
+    treeBaseImage.src = "images/treebase.png";
+    treeTopImage.src = "images/treetop.png";
+    grassBoulderImage.src = "images/grassBoulder.png";
+    grassPinkImage.src = "images/grassPink.png";
+    sandBoulderImage.src = "images/sandBoulder.png";
 
-    dance01.src = "dance1.png";
-    dance02.src = "dance2.png";
-    dance03.src = "dance3.png";
-    dance04.src = "dance4.png";
+    dance01.src = "images/dance1.png";
+    dance02.src = "images/dance2.png";
+    dance03.src = "images/dance3.png";
+    dance04.src = "images/dance4.png";
 
-    pickupImage.src = "pickup.png";
-    longGrassImage.src = "longGrass.png";
-    arfTileImage.src = "accessRF.png";
-    artTileImage.src = "accessRT.png";
-    arbTileImage.src = "accessRB.png";
-    alfTileImage.src = "accessLF.png";
-    altTileImage.src = "accessLT.png";
-    albTileImage.src = "accessLB.png";
+    pickupImage.src = "images/pickup.png";
+    longGrassImage.src = "images/longGrass.png";
+    arfTileImage.src = "images/accessRF.png";
+    artTileImage.src = "images/accessRT.png";
+    arbTileImage.src = "images/accessRB.png";
+    alfTileImage.src = "images/accessLF.png";
+    altTileImage.src = "images/accessLT.png";
+    albTileImage.src = "images/accessLB.png";
 
-
+    brickWallImage.src = "images/brickWall.png";
+    brickWallSDoor.src = "images/brickSDoor.png";
+    brickWindowImage.src = "images/brickWindow.png";
+    invWarp.src = "images/brickSDoor.png";
 }
 
 

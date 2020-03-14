@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    button{
+        height: 20px;
+        width: 20px;
+        padding: 0px;
+        margin: 0px;
+        
+    }
+    #theTiles button{
+        border: 0px;
+    }
+    
+    </style>
+    <link rel="stylesheet" href="draw.css">
+</head>
+<body>
+    <h1>Something Cool is Coming! <button style="width: auto; height: auto" onclick="generate()">GENERATE</button></h1>
+    <div>
+        <div id="theTiles" style="width: 40%; display:  inline-block;"></div>
+        <div id="selectors" style="width: 40%; display:  inline-block;float:right"></div>
+    </div>
+
+
+    <script src="createGrid.js"></script>
+</body>
+</html>
