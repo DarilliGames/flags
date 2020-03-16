@@ -4,8 +4,11 @@ window.onload = function () {
     document.addEventListener("keydown", keyPush);
     document.addEventListener("keyup", keyUp);
     loadImages();
-    setInterval(game, 1000 / 10);
+    overwolrdInterval = setInterval(game, 1000 / 10);
     highscore = 0;
+    
+    
+    
 }
 px = py = 10;
 gs = 30;
@@ -120,7 +123,8 @@ levels = {
         ],
         "warps": [{ "x": 19, "y": 7, "l": 2, "nx": 1, "ny": 7 }, { "x": 19, "y": 8, "l": 2, "nx": 1, "ny": 8 }, { "x": 19, "y": 9, "l": 2, "nx": 1, "ny": 9 }],
         "pickups": [{ "x": 0, "y": 0, "i": 0, "q": 1 }, { "x": 18, "y": 12, "i": 0, "q": 1 }],
-        "interactiveBlocks": [{ "x": 4, "y": 6, "a": 0 }, { "x": 5, "y": 7, "a": 0 }, { "x": 19, "y": 7, "a": 12 }, { "x": 19, "y": 8, "a": 11 }, { "x": 19, "y": 9, "a": 13 }]
+        "interactiveBlocks": [{ "x": 4, "y": 6, "a": 0 }, { "x": 5, "y": 7, "a": 0 }, { "x": 19, "y": 7, "a": 12 }, { "x": 19, "y": 8, "a": 11 }, { "x": 19, "y": 9, "a": 13 }],
+        "wildEncounters": [{"which": "Charmander", "chance": 50}, {"which": "Bulbasaur", "chance": 50}, {"which": "Mewwo", "chance": 10}]
     },
 
     2:
@@ -163,6 +167,10 @@ levels = {
     }
 
 }
+if (sessionStorage.getItem("customMap") != null){
+    levels[51]["level"] = JSON.parse(sessionStorage.getItem("customMap"));
+}
+
 
 level = levels[1]
 tiles = level["level"];
@@ -338,6 +346,15 @@ function game() {
                 gridWarp(interactiveBlocks[i]["x"], interactiveBlocks[i]["y"]);
                 console.log("You triggered something");
             }
+            if (interactiveBlocks[i]["a"]==0){
+                console.log("Trying to initiate Battle");
+                if(Math.round(Math.random() * 10) > 3){
+                    console.log("Found a wild Pokemon");
+                    initateBattle();
+                    wildBattleRandom();
+                    
+                }
+            }
 
         }
     }
@@ -356,6 +373,37 @@ function game() {
 
 
 }
+
+function initateBattle(){
+    clearInterval(overwolrdInterval);
+    document.removeEventListener("keydown", keyPush);
+    document.removeEventListener("keydown", keyUp);
+}
+
+function wildBattleRandom(){
+    var figure = 0;
+    var encountered = "";
+    for(var i = 0; i < level["wildEncounters"].length; i++){
+        figure += level["wildEncounters"][i]["chance"];
+    }
+    var gotten = Math.round(Math.random() * figure);
+    console.log(gotten);
+    console.log(figure);
+    figure = 0;
+
+    for(var i = 0; i < level["wildEncounters"].length; i++){
+        figure += level["wildEncounters"][i]["chance"];
+        console.log(figure);
+        console.log(gotten);
+        if (gotten > figure){
+            encountered = level["wildEncounters"][i]["which"];
+            console.log("Encountered "+level["wildEncounters"][i]["which"]);
+
+        }
+    }
+    console.log(encountered);
+}
+
 function keyPush(evt) {
     if (!is_key_down) {
         is_key_down = true;

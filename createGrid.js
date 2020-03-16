@@ -71,8 +71,9 @@ function generate(){
 
 
     }
-    console.log(JSON.stringify(outer));
-    console.log(i);
+    outer = JSON.stringify(outer);
+    console.log(outer);
+    sessionStorage.setItem("customMap", outer);
 }
 
 
@@ -83,4 +84,7 @@ var tiles = {
     2: "sand"
 
 }
+
+
+
 
