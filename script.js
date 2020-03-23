@@ -361,17 +361,6 @@ function game() {
 
 
 
-    if (ax == px && ay == py) {
-        ax = Math.floor(Math.random() * tc);
-        ay = Math.floor(Math.random() * tc);
-    }
-    // ctx.fillStyle = "red";
-    // ctx.fillRect(ax * gs, ay * gs, gs, gs);
-    ctx.drawImage(cakeImage, ax * gs, ay * gs, gs, gs);
-
-
-
-
 }
 
 function initateBattle(){
